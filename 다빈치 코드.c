@@ -31,26 +31,30 @@ int main(void)
 
 int start_screen(void)
 {
-	int s;	
+	int s=1;	
 	 
-	printf("______________________________\n\n");
-	printf("	1. °ÔÀÓ¼³¸í\n");
-	printf("	2. »ç¿ëÀÚ »èÁ¦\n");
-	printf("	3. °ÔÀÓ ½ÃÀÛ\n");
-	printf("	4. ·©Å· Á¶È¸\n");
-	printf("______________________________\n\n");
-	printf("¸Ş´º¸¦ ¼±ÅÃÇÏ¼¼¿ä. >>  ");
-	scanf("%d", &s);
-	printf("\n\n");
+	while (s>0)
+	{
+		printf("______________________________\n\n");
+		printf("	1. ê²Œì„ì„¤ëª…\n");
+		printf("	2. ì‚¬ìš©ì ì‚­ì œ\n");
+		printf("	3. ê²Œì„ ì‹œì‘\n");
+		printf("	4. ë­í‚¹ ì¡°íšŒ\n");
+		printf("______________________________\n\n");
+		printf("ë©”ë‰´ë¥¼ ì„ íƒí•˜ì„¸ìš”. >>  ");
+		scanf("%d", &s);
+		printf("\n\n");
 	
-	if ( s==1 )
-		print_explain();
-	else if ( s==2 )
-		delete_user();
-	else if ( s==3 )
-		start_game();
-	else if ( s==4 )
-		print_rank();
+		if ( s==1 )
+			print_explain();
+		else if ( s==2 )
+			delete_user();
+		else if ( s==3 )
+			start_game();
+		else if ( s==4 )
+			print_rank();
+		pritnf("\n\n\n\n\n");
+	}
 }
 
 void start_game()
@@ -73,7 +77,7 @@ void start_game()
 	FILE *fp;
 	Rank arr[100];
 	
-	printf("»ç¿ëÀÚÀÇ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä. >> ");
+	printf("ì‚¬ìš©ìì˜ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”. >> ");
 	scanf("%s", name);
 	
 	fp = fopen("Rank.txt", "r");
@@ -82,7 +86,7 @@ void start_game()
 		fscanf(fp, "%d %s %d", &arr[i].rank, &arr[i].name, &arr[i].score);
 		if(strcmp(arr[i].name, name)==0)
 		{
-			printf("ÀÌ¸§ÀÌ Áßº¹µË´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä. ");
+			printf("ì´ë¦„ì´ ì¤‘ë³µë©ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”. ");
 			return;
 		}
 	}
@@ -95,33 +99,33 @@ void start_game()
 	
 	while(score!=my_sum || score!=your_sum)
 	{
-		printf("	¢ºMY CARD : ");
+		printf("	â–¶MY CARD : ");
 		print_my_card(my_c, my_sum);
 		printf("\n");
-		printf("	¢¹YOUR CARD : ");
+		printf("	â–·YOUR CARD : ");
 		print_your_card(your_c, your_open, your_sum);
 		
 		printf("\n");
 		for(i=1; i<=your_sum; i++)   
 			printf("%d ", your_c[(i-1)*2+1]);
 		
-		printf("\n\n	¢º  MY TURN  ¢¸\n\n");
-		printf("	    ¸î ¹øÂ° Ä«µå?  >>  ");
+		printf("\n\n	â–¶  MY TURN  â—€\n\n");
+		printf("	    ëª‡ ë²ˆì§¸ ì¹´ë“œ?  >>  ");
 		scanf("%d", &h_card);
-		printf("	    ¼ıÀÚ´Â?  >>  ");
+		printf("	    ìˆ«ìëŠ”?  >>  ");
 		scanf("%d", &number);
 		
 		if(your_c[(h_card*2)-1] == number)
 		{
-			printf("Á¤´äÀÔ´Ï´Ù!.\n");
+			printf("ì •ë‹µì…ë‹ˆë‹¤!.\n");
 			your_open[h_card] = 1;
 			score += 1;
-			printf("´ÙÀ½ÅÏºÎÅÍ Ä«µå°¡ °ø°³µË´Ï´Ù.\n");
+			printf("ë‹¤ìŒí„´ë¶€í„° ì¹´ë“œê°€ ê³µê°œë©ë‹ˆë‹¤.\n");
 			/* next? */
 		}
 		else 
 		{
-			printf("¿À´äÀÔ´Ï´Ù. ÅÏÀÌ ³Ñ¾î°©´Ï´Ù.\n");
+			printf("ì˜¤ë‹µì…ë‹ˆë‹¤. í„´ì´ ë„˜ì–´ê°‘ë‹ˆë‹¤.\n");
 			my_sum += 1;
 			add_card(my_card, my_c, card, my_sum);
 		}
@@ -131,13 +135,13 @@ void start_game()
 	
 		if( your == 0 )
 		{
-			printf("»ó´ë°¡ ³» Ä«µå¸¦ ¸ÂÃè½À´Ï´Ù.");
+			printf("ìƒëŒ€ê°€ ë‚´ ì¹´ë“œë¥¼ ë§ì·„ìŠµë‹ˆë‹¤.");
 /*	  	  	  your_sum += 1;
 			add_card(your_card, your_c, card, your_sum);  re */
 		}
 		else if ( your == 1 )  
 		{
-			printf("»ó´ë°¡ ³» Ä«µå¸¦ ¸ÂÃßÁö ¸øÇß½À´Ï´Ù. ");
+			printf("ìƒëŒ€ê°€ ë‚´ ì¹´ë“œë¥¼ ë§ì¶”ì§€ ëª»í–ˆìŠµë‹ˆë‹¤. ");
 /*	  	  	  your_sum += 1;
     	   	add_card(your_card, your_c, card, your_sum);
 	   	   	i = rand() % your_sum+1;
@@ -272,12 +276,12 @@ void delete_user()
 	fp = fopen("Rank.txt", "r");
 	if(fp == NULL)
 	{
-		printf("·©Å·ÀÌ ºñ¾îÀÖ½À´Ï´Ù.");
+		printf("ë­í‚¹ì´ ë¹„ì–´ìˆìŠµë‹ˆë‹¤.");
 		return ;
 	}
 	
 	
-	printf("»èÁ¦ÇÒ »ç¿ëÀÚÀÇ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä. >> ");
+	printf("ì‚­ì œí•  ì‚¬ìš©ìì˜ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”. >> ");
 	scanf("%s", name);   
 		
 	for(i=0; i<num; i++)
@@ -312,7 +316,7 @@ void delete_user()
 		printf("%3d st : %8s %4d\n", arr[i].rank, arr[i].name, arr[i].score);
 	}
 	
-	printf("%s »ç¿ëÀÚÀÇ ±â·ÏÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.",name);
+	printf("%s ì‚¬ìš©ìì˜ ê¸°ë¡ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.",name);
 	fclose(fp);
 }
 
@@ -328,7 +332,7 @@ void print_rank()
 	fp = fopen("Rank.txt", "r");
 	if(fp == NULL)
 	{
-		printf("·©Å·ÀÌ ºñ¾îÀÖ½À´Ï´Ù.");
+		printf("ë­í‚¹ì´ ë¹„ì–´ìˆìŠµë‹ˆë‹¤.");
 		return ;
 	}
 	
@@ -368,7 +372,7 @@ void print_rank()
 		printf("%3d st : %8s %4d\n", arr[i].rank, arr[i].name, arr[i].score);
 	}
 	
-	printf("°Ë»öÇÒ »ç¿ëÀÚ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä. >> ");
+	printf("ê²€ìƒ‰í•  ì‚¬ìš©ì ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”. >> ");
 	scanf("%s", name);
 	for(i=0; i<num; i++)
 	{
@@ -383,11 +387,11 @@ void print_rank()
 void print_explain()
 {
 	printf("\n");
-	printf("0. Ä«µå´Â Áßº¹µÇÁö ¾Ê´Â´Ù.\n0-1. Ä«µåÀÇ Ãâ·Â -> ex) B1(°ËÁ¤»ö 1), W2(ÇÏ¾á»ö 2)\n");	
-	printf("\n1. °ÔÀÓÀÌ ½ÃÀÛÇÏ°í ³ª¿Í »ó´ë¹æÀº °¢ÀÚ 4ÀåÀÇ Ä«µå¸¦ ºÎ¿©¹Ş´Â´Ù.\n1-1. »ó´ë¹æÀÇ Ä«µå´Â »ö¸¸ ¾Ë ¼ö ÀÖ´Ù. -> ex) B W W B\n");	
-	printf("\n2. ³ªÀÇ ÅÏÀÌ µ¹¾Æ¿Ã ¶§ ¸¶´Ù 1ÀåÀÇ Ä«µå¸¦ ºÎ¿©¹Ş´Â´Ù.\n");	
-	printf("\n3. ³ªÀÇ ÅÏ¿¡ Ãß¸®¿¡ ½ÇÆĞÇÏ¸é ºÎ¿©¹ŞÀº 1ÀåÀÇ Ä«µå¸¦ °ø°³ÇÑ´Ù.\n");	   
-	printf("\n4. °ÔÀÓÀÌ ³¡³¯ ¶§ ±îÁö 2¿Í 3À» ¹İº¹ÇÑ´Ù.");
+	printf("0. ì¹´ë“œëŠ” ì¤‘ë³µë˜ì§€ ì•ŠëŠ”ë‹¤.\n0-1. ì¹´ë“œì˜ ì¶œë ¥ -> ex) B1(ê²€ì •ìƒ‰ 1), W2(í•˜ì–€ìƒ‰ 2)\n");	
+	printf("\n1. ê²Œì„ì´ ì‹œì‘í•˜ê³  ë‚˜ì™€ ìƒëŒ€ë°©ì€ ê°ì 4ì¥ì˜ ì¹´ë“œë¥¼ ë¶€ì—¬ë°›ëŠ”ë‹¤.\n1-1. ìƒëŒ€ë°©ì˜ ì¹´ë“œëŠ” ìƒ‰ë§Œ ì•Œ ìˆ˜ ìˆë‹¤. -> ex) B W W B\n");	
+	printf("\n2. ë‚˜ì˜ í„´ì´ ëŒì•„ì˜¬ ë•Œ ë§ˆë‹¤ 1ì¥ì˜ ì¹´ë“œë¥¼ ë¶€ì—¬ë°›ëŠ”ë‹¤.\n");	
+	printf("\n3. ë‚˜ì˜ í„´ì— ì¶”ë¦¬ì— ì‹¤íŒ¨í•˜ë©´ ë¶€ì—¬ë°›ì€ 1ì¥ì˜ ì¹´ë“œë¥¼ ê³µê°œí•œë‹¤.\n");	   
+	printf("\n4. ê²Œì„ì´ ëë‚  ë•Œ ê¹Œì§€ 2ì™€ 3ì„ ë°˜ë³µí•œë‹¤.");
 	printf("\n");
 }
 
